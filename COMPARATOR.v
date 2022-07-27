@@ -12,7 +12,7 @@ module  COMPARATOR( input A,B,   //entradas, cada una de 1 bit
 reg [3:0]  I;
 
 //instancio el modulo MUX para definir las entradas, lineas de seleccion y salidas diseñadas con los mapas de Karnaugh y las tablas de verdad
-MUX4x1_Case MuxK (.I({1'b1,1'b0,1'b1,1'b1}), .S({A,B}), Y.(K));  //entradas I conectadas a Vcc o tierra, lineas de seleccion conectadas a las variables A y B, salidas K y L
-MUX4x1_Case MuxL (.I({1'b1,1'b1,1'b0,1'b1}), .S({A,B}), Y.(L));  
+MUX4x1_Case MuxK (.I({1'b1,1'b0,1'b1,1'b1}), .S({A,B}), Y.(K));  //multiplexor que resuelve K
+MUX4x1_Case MuxL (.I({1'b1,1'b1,1'b0,1'b1}), .S({A,B}), Y.(L));  //multiplexor que resuelve L
 
 endmodule   
