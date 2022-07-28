@@ -3,27 +3,30 @@
 Autor: Pablo Duran Segura */
 
 //El presente programa comprueba el modulo AltCompr
-//Orden de presedencia PA-PB-PMB
+//Orden de presedencia de las entradas para los test vectors PA-PB-PMB
 
-`timescale 1ns/1ns //escala de tiempo a utilizar
+//escala de tiempo a utilizar
+`timescale 1ns/1ns 
 
 module testAltCompr;
 
-    reg Clk , Reset;
+    reg Clk , Reset;  //entradas
     reg PA, PB, PMB;
 
-    wire C1, C2, C3; 
+    wire C1, C2, C3;  //salidas
 
-
+//datatypes para almacenar los vectores de prueba
+   
     reg [3:0] testvectors [33:0];
     integer vectornum;
 
+    //se instancia el modulo que se esta probando
     AltCompr uut (
         .Clk(Clk) , .Reset(Reset) ,
         .PA(PA) , .PB(PB) , .PMB(PMB) , 
         .C1(C1) , .C2(C2) , .C3(C3) 
         );
-
+//vectores de prueba
     initial 
         begin
 
@@ -63,34 +66,35 @@ module testAltCompr;
             testvectors[32] = 4'b010;   //PA=0, PB= 1, PMB=0 (pasa al estado g, C2C3 activo)
             testvectors[33] = 4'b100;   //PA=1, PB= 0, PMB=0 (regresa al estado a)
 
-            vectornum = 0;
+            vectornum = 0; //se inician los vectores de prueba
 
-            Reset = 1;
+            Reset = 1;  //para que los flip flops arranquen reseteados
             #3 Reset = 0;
-
+            
+//archivos para la forma de onda en gtkwave
             $dumpfile ("AltCompr.vcd");
             $dumpvars(0,testAltCompr) ;//Se exportan todas las variables
 
         end
-
+//se crea la señal de reloj
 always 
     begin
         Clk = 1; #5; Clk = 0; #5;
     end
-
+    
+//se leen las entradas en el flanco inactivo de la señal de reloj
 always @ ( negedge Clk ) 
     begin
     {PA,PB,PMB} = testvectors[vectornum];
-    $display("Las entradas son PA=%b, PB=%b, PMP=%b", PA, PB, PMB); 
+        $display("Las entradas son PA=%b, PB=%b, PMP=%b", PA, PB, PMB); //muestre el valor de las entradas en la terminal
     end
 
+//cambio de estado en el ciclo activo de la señal de reloj, se activan las salidas de moore.     
     always @( posedge Clk )
-
     #1 if (!Reset)
-
         begin
 
-            $display("La salida C1 es %b, la salida C1 es %b y la salida C3 es  %b", C1, C2, C3);
+            $display("La salida C1 es %b, la salida C1 es %b y la salida C3 es  %b", C1, C2, C3); //muestre el valor de las salidas en la terminal
             vectornum = vectornum + 1;
                 if (vectornum == 34) 
                     $finish ; //condicion de parada
