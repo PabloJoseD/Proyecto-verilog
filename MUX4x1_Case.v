@@ -5,7 +5,7 @@ Pablo Duran Segura
 
 // El presente programa describe un multiplexor 4x1 con sentencia Case 
 
-module Mux4x1_Case  (  input [3:0] I ,      //Entradas de datos 
+module MUX4x1_Case  (  input [3:0] I ,      //Entradas de datos 
                         input [1:0] S,     //Lineas de seleccion
                         output reg Y);    //Salida del multiplexor
 
