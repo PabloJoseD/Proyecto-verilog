@@ -8,7 +8,7 @@ module EXTENDER (input Ki,Li,A,B,         //entradas
                     output  reg K0,L0);   //salidas
                 
 
-//funciones que definen cuando se activan o se desactivan las salidas
+//funciones que definen cuando se activan o se desactivan las salidas (se calcularon con Mapas de karnaugh)
 
     always @(*) begin
 
