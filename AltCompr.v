@@ -67,8 +67,8 @@ always @(*)
     endcase
 
 //asignacion de los estados en donde se activan las salidas, el clk negado es cuando la salida C3 se activa en el IRE.
-assign C1 = ((EstPres == b&(~Clk)) | EstPres == c | EstPres == e);
-assign C2 = ((EstPres == b&(~Clk)) | EstPres == c | EstPres == g);
-assign C3 = ((EstPres == b&(~Clk)) | EstPres == e | EstPres == g);
+assign C1 = (EstPres == b | EstPres == c | EstPres == e | (EstPres == g&(~Clk)));
+assign C2 = (EstPres == b | EstPres == c | EstPres == g | (EstPres == e&(~Clk)));
+assign C3 = (EstPres == b | EstPres == e | EstPres == g | (EstPres == c&(~Clk)));
 
 endmodule
